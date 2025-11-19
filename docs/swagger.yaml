@@ -1,0 +1,9 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: Simple Task API with Gin, Gorm, PostgreSQL
+  title: Task API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
