@@ -9,12 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+
+	controllers "Task-Api/controllers"
 )
 
 // @title Task API
 // @version 1.0
 // @description Simple Task API with Gin, GORM, PostgreSQL
-// @host localhost:8080
+// @host localhost:8000
 // @BasePath /
 func main() {
 	database.ConnectDatabase()
@@ -24,6 +26,6 @@ func main() {
 
 	// Swagger route
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
+	r.GET("/tasks ", controllers.GetTasks)
 	r.Run(":8000")
 }

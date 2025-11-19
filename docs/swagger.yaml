@@ -1,97 +1,88 @@
+swagger: "2.0"
+info:
+  title: Task API
+  version: "1.0"
+  description: Simple Task API with Gin, GORM, PostgreSQL
 basePath: /
+host: localhost:8000
+schemes: []
+paths:
+  /tasks:
+    get:
+      tags: [tasks]
+      summary: Get all tasks
+      description: Get list of tasks
+      produces: [application/json]
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Task'
+    post:
+      tags: [tasks]
+      summary: Create a new task
+      consumes: [application/json]
+      produces: [application/json]
+      parameters:
+        - in: body
+          name: task
+          description: Task Data
+          required: true
+          schema:
+            $ref: '#/definitions/models.Task'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+  /tasks/{id}:
+    put:
+      tags: [tasks]
+      summary: Update a task
+      consumes: [application/json]
+      produces: [application/json]
+      parameters:
+        - in: path
+          name: id
+          description: Task ID
+          required: true
+          type: integer
+        - in: body
+          name: task
+          description: Task Data
+          required: true
+          schema:
+            $ref: '#/definitions/models.Task'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+    delete:
+      tags: [tasks]
+      summary: Delete a task
+      parameters:
+        - in: path
+          name: id
+          description: Task ID
+          required: true
+          type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+            additionalProperties:
+              type: string
 definitions:
   models.Task:
+    type: object
     properties:
-      completed:
-        type: boolean
       id:
         type: integer
       title:
         type: string
-    type: object
-host: localhost:8080
-info:
-  contact: {}
-  description: Simple Task API with Gin, GORM, PostgreSQL
-  title: Task API
-  version: "1.0"
-paths:
-  /tasks:
-    get:
-      description: Get list of tasks
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Task'
-            type: array
-      summary: Get all tasks
-      tags:
-      - tasks
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: Task Data
-        in: body
-        name: task
-        required: true
-        schema:
-          $ref: '#/definitions/models.Task'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Task'
-      summary: Create a new task
-      tags:
-      - tasks
-  /tasks/{id}:
-    delete:
-      parameters:
-      - description: Task ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: Delete a task
-      tags:
-      - tasks
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: Task ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Task Data
-        in: body
-        name: task
-        required: true
-        schema:
-          $ref: '#/definitions/models.Task'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Task'
-      summary: Update a task
-      tags:
-      - tasks
-swagger: "2.0"
+      completed:
+        type: boolean
