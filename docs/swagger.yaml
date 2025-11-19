@@ -1,9 +1,97 @@
 basePath: /
+definitions:
+  models.Task:
+    properties:
+      completed:
+        type: boolean
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
-  description: Simple Task API with Gin, Gorm, PostgreSQL
+  description: Simple Task API with Gin, GORM, PostgreSQL
   title: Task API
   version: "1.0"
-paths: {}
+paths:
+  /tasks:
+    get:
+      description: Get list of tasks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Task'
+            type: array
+      summary: Get all tasks
+      tags:
+      - tasks
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Task Data
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Create a new task
+      tags:
+      - tasks
+  /tasks/{id}:
+    delete:
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a task
+      tags:
+      - tasks
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Task Data
+        in: body
+        name: task
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Task'
+      summary: Update a task
+      tags:
+      - tasks
 swagger: "2.0"
